@@ -1,0 +1,6 @@
+@-moz-document url("about:home"), url("about:newtab") {
+    /* Centers the search bar if the shortcut row is disabled*/
+    .search-wrapper {
+        padding: 25vh 0 38px !important;
+    }
+}
