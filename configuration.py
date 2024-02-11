@@ -52,8 +52,7 @@ def create_user_prefs():
         print("All this script is trying to do is enable \"toolkit.legacyUserProfileCustomizations.stylesheets\"")
         print("If you already have this enabled, no sweat. If not, please add it manually.")
     else:
-        with open(profile_user_prefs, 'w') as file:
-            file.write("user_pref(\"toolkit.legacyUserProfileCustomizations.stylesheets\", true);")
+        shutil.copyfile("./user-scripts/user.js", profile_user_prefs)
         print("Enabling legacy toolkit profile customization")
         was_successful = True;
 
