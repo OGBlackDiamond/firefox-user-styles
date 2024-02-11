@@ -9,7 +9,7 @@
 
 /* leaves space for the window buttons */
 #nav-bar {
-    margin-top: -20px;
+    margin-top: 0px;
 }
 
 :root { --thin-tab-width: 10px; }
