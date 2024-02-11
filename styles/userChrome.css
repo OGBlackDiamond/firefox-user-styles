@@ -52,6 +52,3 @@
 
 /* remove the Bookmark Star */
 #star-button { display: none !important; }
-
-/* remove the Save To Pocket tab */
-#save-to-pocket-button { display: none; }
