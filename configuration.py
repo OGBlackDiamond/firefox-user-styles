@@ -1,10 +1,17 @@
 import pathlib
+import platform
 import os
 import shutil
 
-# gets the default firefox profile
-profiles = pathlib.Path.home().glob(".mozilla/firefox/*default-release*/")
-firefox_default_profile = next(profiles, None)
+# gets the home directory of the system
+home_dir = pathlib.Path.home()
+
+# gets the default firefox profile based on operating system
+if platform.system() == "Windows":
+    profiles = home_dir.glob("AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\*default-release*\\")
+else:
+    profiles = pathlib.Path.home().glob(".mozilla/firefox/*default-release*/")
+    firefox_default_profile = next(profiles, None)
 
 # reads the directory back to the user for potential debugging
 print("found firefox user profile @ \"", end="")
