@@ -11,7 +11,8 @@ if platform.system() == "Windows":
     profiles = home_dir.glob("AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\*default-release*\\")
 else:
     profiles = pathlib.Path.home().glob(".mozilla/firefox/*default-release*/")
-    firefox_default_profile = next(profiles, None)
+
+firefox_default_profile = next(profiles, None)
 
 # reads the directory back to the user for potential debugging
 print("found firefox user profile @ \"", end="")
