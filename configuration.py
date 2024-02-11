@@ -10,7 +10,7 @@ home_dir = pathlib.Path.home()
 if platform.system() == "Windows":
     profiles = home_dir.glob("AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\*default-release*\\")
 else:
-    profiles = pathlib.Path.home().glob(".mozilla/firefox/*default-release*/")
+    profiles = home_dir.glob(".mozilla/firefox/*default-release*/")
 
 firefox_default_profile = next(profiles, None)
 
@@ -31,8 +31,10 @@ profile_content_file = os.path.join(profile_chrome_dir, "userContent.css")
 # the path for the user preferences file
 profile_user_prefs = os.path.join(firefox_default_profile, "user.js")
 
+# variable to determine if anything was actually changed
 was_successful = False;
 
+# copys all of the custom files into their respecive directories
 def copy_files():
     global was_successful
     # checks to make sure that a userChrome file doesn't already exist
@@ -51,9 +53,6 @@ def copy_files():
     else:
         print("A userContent.css file already exists! Please remove it or add to the configuration yourself.")
 
-
-def create_user_prefs():
-    global was_successful
     # checks to make sure we aren't overwriting the user's pre-existing data
     if os.path.exists(profile_user_prefs):
         print("It looks like you already have a \"user.js\" file!")
@@ -64,17 +63,17 @@ def create_user_prefs():
         print("Enabling legacy toolkit profile customization")
         was_successful = True;
 
-
 # checks if a chrome directory already exists, and creates a new one if it doesn't already exist
 if os.path.exists(profile_chrome_dir):
     print("Found chrome directory")
-    copy_files()
 else:
     os.mkdir(profile_chrome_dir)
     print("Creating chrome directory")
-    copy_files()
 
-create_user_prefs()
+# copies all needed files
+copy_files()
+
+# tells the user the overall status
 if was_successful:
     print("\nDone!\nPlease restart Firefox to allow your changes to take effect")
 else:
