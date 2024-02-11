@@ -100,21 +100,21 @@ def copy_files():
     if not user_chrome_exists:
         rep_usr_chrome()
     else:
-        print("A userChrome.css file already exists! Please remove it or add to the configuration yourself.")
+        print("A userChrome.css file already exists! Please remove it with the \"--delete\" argument or append to it with the \"--append\" argument")
 
     # checks to make sure that a userContent file doesn't already exist
     if not user_content_exists:
         rep_usr_content()
     else:
-        print("A userContent.css file already exists! Please remove it or add to the configuration yourself.")
+        print("A userContent.css file already exists! Please remove it with the \"--delete\" argument or append to it with the \"--append\" argument")
 
     # checks to make sure we aren't overwriting the user's pre-existing data
     if not user_prefs_exists:
         rep_usr_prefs()
     else:
-        print("It looks like you already have a \"user.js\" file!")
-        print("All this script is trying to do is enable \"toolkit.legacyUserProfileCustomizations.stylesheets\"")
-        print("If you already have this enabled, no sweat. If not, please add it manually.")
+        print("It looks like you already have a user.js file!")
+        print("All this script is trying to do is enable \"toolkit.legacyUserProfileCustomizations.stylesheets\" and clean up your toolbar")
+        print("If you already have this enabled, no sweat; if not, append to it with the \"--append\" argument")
 
 
 # deletes and creates a fresh set of configuration files
