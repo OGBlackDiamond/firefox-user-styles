@@ -186,7 +186,7 @@ def delete(is_for_wipe=False):
         os.remove(profile_user_prefs)
         print("Nuking user.js")
 
-    print("\nNuking complete")
+    print("\nNuking complete\n")
     if not is_for_wipe:
         print("Your default Firefox profile should return to default settings upon restartarting the browser")
         quit()
