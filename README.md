@@ -5,7 +5,7 @@ The default style configuration is my custom stylesheet built for the vertical t
 
 ### How to use
 * fork and clone this repository on your local machine
-* edit the `userChrome.css` and `userContent.css` files to fit your custom configuration
+* edit the `userChrome.css`, `userContent.css` and `user.js` files to fit your custom configuration
 * push these changes to your fork
 * run the `configure.py` script:
     * Argument options:
