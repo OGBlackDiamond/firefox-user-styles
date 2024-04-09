@@ -41,6 +41,7 @@ print("\033[1m" + "\nfound firefox user profile @ " + "\033[0m" + "\"", end="")
 print(firefox_default_profile, end="")
 print("\"\n")
 
+# asks to make sure the directory that the user wants to edit is correct
 print("Would you like to continue? (y/n)")
 ans = input("--> ")
 
@@ -55,6 +56,7 @@ if ans == "n":
 
 
 print()
+###########################################################################
 
 # the path for the chrome directory
 profile_chrome_dir = os.path.join(firefox_default_profile, "chrome/")
