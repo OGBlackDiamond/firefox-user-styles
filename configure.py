@@ -22,11 +22,18 @@ args = parser.parse_args()
 # gets the home directory of the system
 home_dir = pathlib.Path.home()
 
+opsys = platform.system()
+
 # gets the default firefox profile based on operating system
-if platform.system() == "Windows":
+if opsys == "Windows":
     profiles = home_dir.glob("AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\*default-release*\\")
-else:
+elif opsys == "Linux":
     profiles = home_dir.glob(".mozilla/firefox/*default-release*/")
+elif opsys == "Darwin":
+    profiles = home_dir.glob("Library/Application Support/Firefox/Profiles/*default-release*/")
+else:
+    print("Unrecognized file system!")
+    exit()
 
 firefox_default_profile = next(profiles, None)
 
