@@ -1,8 +1,4 @@
-import argparse
-import os
-import pathlib
-import platform
-import shutil
+import argparse, os, pathlib, platform, shutil
 
 # instantiate the argument parser
 parser = argparse.ArgumentParser(description="Custom Firefox user styles automatic configuration utility")
@@ -22,9 +18,10 @@ args = parser.parse_args()
 # gets the home directory of the system
 home_dir = pathlib.Path.home()
 
+# gets the kernel type so the correct file system can be parsed
 opsys = platform.system()
 
-# gets the default firefox profile based on operating system
+# gets the default firefox profile based on kernel
 if opsys == "Windows":
     profiles = home_dir.glob("AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\*default-release*\\")
 elif opsys == "Linux":
@@ -32,7 +29,9 @@ elif opsys == "Linux":
 elif opsys == "Darwin":
     profiles = home_dir.glob("Library/Application Support/Firefox/Profiles/*default-release*/")
 else:
+    # why aren't you using any of these operating systems???
     print("Unrecognized file system!")
+    print("I only support file systems for: Windows, GNU/Linux, and MacOS")
     exit()
 
 firefox_default_profile = next(profiles, None)
@@ -41,6 +40,21 @@ firefox_default_profile = next(profiles, None)
 print("\033[1m" + "\nfound firefox user profile @ " + "\033[0m" + "\"", end="")
 print(firefox_default_profile, end="")
 print("\"\n")
+
+print("Would you like to continue? (y/n)")
+ans = input("--> ")
+
+while ans != "y" and ans != "n":
+    print("invalid option! (y/n)?")
+    ans = input("--> ")
+
+
+if ans == "n":
+    print("Quitting...")
+    exit()
+
+
+print()
 
 # the path for the chrome directory
 profile_chrome_dir = os.path.join(firefox_default_profile, "chrome/")
@@ -74,26 +88,26 @@ def check_existances():
 # replicates userChrome.css
 def rep_usr_chrome():
     shutil.copyfile("./styles/userChrome.css", profile_chrome_file)
-    print("Replicating userChrome.css")
+    print("Replicating userChrome.css\n")
 
 # replicates userContent.css
 def rep_usr_content():
     shutil.copyfile("./styles/userContent.css", profile_content_file)
-    print("Replicating userContent.css")
+    print("Replicating userContent.css\n")
 
 # replicates user.js
 def rep_usr_prefs():
     shutil.copyfile("./user-scripts/user.js", profile_user_prefs)
-    print("Enabling legacy toolkit profile customization and cleaning up the toolbar")
+    print("Enabling legacy toolkit profile customization and cleaning up the toolbar\n")
 
 def mk_chrom_dir():
     os.mkdir(profile_chrome_dir)
-    print("Creating chrome directory")
+    print("Creating chrome directory\n")
 
 # creates the chrome directory
 def check_chrom_dir():
     if chrome_exists:
-        print("Found chrome directory")
+        print("Found chrome directory\n")
     else:
         mk_chrom_dir()
 
@@ -107,20 +121,20 @@ def copy_files():
     if not user_chrome_exists:
         rep_usr_chrome()
     else:
-        print("A userChrome.css file already exists! Please remove it with the \"--delete\" argument or append to it with the \"--append\" argument")
+        print("A userChrome.css file already exists! Please remove it with the \"--delete\" argument or append to it with the \"--append\" argument\n")
 
     # checks to make sure that a userContent file doesn't already exist
     if not user_content_exists:
         rep_usr_content()
     else:
-        print("A userContent.css file already exists! Please remove it with the \"--delete\" argument or append to it with the \"--append\" argument")
+        print("A userContent.css file already exists! Please remove it with the \"--delete\" argument or append to it with the \"--append\" argument\n")
 
     # checks to make sure we aren't overwriting the user's pre-existing data
     if not user_prefs_exists:
         rep_usr_prefs()
     else:
         print("It looks like you already have a user.js file!")
-        print("All this script is trying to do is enable \"toolkit.legacyUserProfileCustomizations.stylesheets\" and clean up your toolbar")
+        print("All this script is trying to do is enable \"toolkit.legacyUserProfileCustomizations.stylesheets\" and clean up your toolbar\n")
         print("If you already have this enabled, no sweat; if not, append to it with the \"--append\" argument")
 
 
@@ -144,9 +158,9 @@ def copy_files_append():
         with open(profile_chrome_file, "a") as user_chrome:
             with open("./styles/userChrome.css", "r") as new_user_chrome:
                 user_chrome.write("\n" + new_user_chrome.read())
-        print("Appended to userChrome.css")
+        print("Appended to userChrome.css\n")
     else:
-        print("userChrome.css doesn't exist - creating a fresh one")
+        print("userChrome.css doesn't exist - creating a fresh one\n")
         rep_usr_chrome()
 
     # appends the userContent file
@@ -154,9 +168,9 @@ def copy_files_append():
         with open(profile_content_file, "a") as user_content:
             with open("./styles/userContent.css", "r") as new_user_content:
                 user_content.write("\n" + new_user_content.read())
-        print("Appended to userContent.css")
+        print("Appended to userContent.css\n")
     else:
-        print("userContent.css doesnt' exist - creating a fresh one")
+        print("userContent.css doesnt' exist - creating a fresh one\n")
         rep_usr_content()
 
     # appends the user preferences file
@@ -164,9 +178,9 @@ def copy_files_append():
         with open(profile_user_prefs, "a") as user_prefs:
             with open("./user-scripts/user.js", "r") as new_user_prefs:
                 user_prefs.write("\n" + new_user_prefs.read())
-        print("Appended to user.js")
+        print("Appended to user.js\n")
     else:
-        print("user.js doesn't exist - creating a fresh one")
+        print("user.js doesn't exist - creating a fresh one\n")
         rep_usr_prefs()
 
 # delete any and all configuration files
