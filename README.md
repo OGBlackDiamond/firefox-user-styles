@@ -13,6 +13,11 @@ The default style configuration is my custom stylesheet built for the vertical t
     2. `--wipe` - will remove any pre-existing configuration files before putting new ones in their place
     3. `--append` - will append the new data on top of existing configuration files
     4. `--delete` - deletes any existing configuration files and does not proceed with adding new files; this should be used if something breaks
+
+    #### Special arguments:
+    * `--developer` or `-d` - will target firefox developer edition profiles, instead of the standard install.
+    * `--custom` or `-c` - takes a string as input, the script will try to target a profile with the name you pass in.
+
 * restart Firefox
 
 Now, you can automatically set up this configuration on any machine by cloning your fork on said machine and running the configuration script.

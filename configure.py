@@ -51,6 +51,11 @@ else:
 
 firefox_default_profile = next(profiles, None)
 
+if firefox_default_profile == None:
+    print("Firefox profile could not be located!")
+    print("Quitting...")
+    exit()
+
 # reads the directory back to the user for potential debugging
 print("\033[1m" + "\nfound firefox user profile @ " + "\033[0m" + "\"", end="")
 print(firefox_default_profile, end="")
