@@ -14,6 +14,7 @@ parser.add_argument("--delete", action="store_true", help="Delete existing confi
 
 # add support for other versions of firefox
 parser.add_argument("-d", "--developer", action="store_true", help="Target a developer edition firefox profile")
+parser.add_argument("-n", "--nightly", action="store_true", help="Target a nightly edition firefox profile")
 parser.add_argument("-c", "--custom", type=str, default=None, help="Target your custom firefox profile")
 
 # parse the arguemnts gotten
@@ -28,10 +29,13 @@ opsys = platform.system()
 # create a release string for different firefox versions
 release_name = ""
 
+# choose realase name for specified profile
 if args.custom != None:
     release_name = f"*{args.custom}*"
 elif args.developer:
     release_name = "*dev-edition-default*"
+elif args.nightly:
+    release_name = "*nightly-release*"
 else:
     release_name = "*default-release*"
 

@@ -9,14 +9,15 @@ The default style configuration is my custom stylesheet built for the vertical t
 * push these changes to your fork
 * run the `configure.py` script:
     * Argument options:
-    1. **No argument** - will add configuration files like normal and won't touch anything that already exists
-    2. `--wipe` - will remove any pre-existing configuration files before putting new ones in their place
-    3. `--append` - will append the new data on top of existing configuration files
-    4. `--delete` - deletes any existing configuration files and does not proceed with adding new files; this should be used if something breaks
+        1. **No argument** - will add configuration files like normal and won't touch anything that already exists
+        2. `--wipe` - will remove any pre-existing configuration files before putting new ones in their place
+        3. `--append` - will append the new data on top of existing configuration files
+        4. `--delete` - deletes any existing configuration files and does not proceed with adding new files; this should be used if something breaks
 
     #### Special arguments:
-    * `--developer` or `-d` - will target firefox developer edition profiles, instead of the standard install.
-    * `--custom` or `-c` - takes a string as input, the script will try to target a profile with the name you pass in.
+    * `--developer` or `-d` - will target firefox developer edition profiles
+    * `--nightly` or `-n` - will target firefox nightly edition profiles
+    * `--custom` or `-c` - takes a string as input, the script will try to target a profile with the name you pass in
 
 * restart Firefox
 
