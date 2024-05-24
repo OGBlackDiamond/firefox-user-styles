@@ -12,6 +12,10 @@ parser.add_argument("--append", action="store_true", help="Append new data to ex
 # delete any configuration files in case something breaks
 parser.add_argument("--delete", action="store_true", help="Delete existing configuration files")
 
+# add support for other versions of firefox
+parser.add_argument("-d", "--developer", action="store_true", help="Target a developer edition firefox profile")
+parser.add_argument("-c", "--custom", type=str, default=None, help="Target your custom firefox profile")
+
 # parse the arguemnts gotten
 args = parser.parse_args()
 
@@ -21,13 +25,24 @@ home_dir = pathlib.Path.home()
 # gets the kernel type so the correct file system can be parsed
 opsys = platform.system()
 
+# create a release string for different firefox versions
+release_name = ""
+
+if args.custom != None:
+    release_name = f"*{args.custom}*"
+elif args.developer:
+    release_name = "*dev-edition-default*"
+else:
+    release_name = "*default-release*"
+
+
 # gets the default firefox profile based on kernel
 if opsys == "Windows":
-    profiles = home_dir.glob("AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\*default-release*\\")
+    profiles = home_dir.glob(f"AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\{release_name}\\")
 elif opsys == "Linux":
-    profiles = home_dir.glob(".mozilla/firefox/*default-release*/")
+    profiles = home_dir.glob(f".mozilla/firefox/{release_name}/")
 elif opsys == "Darwin":
-    profiles = home_dir.glob("Library/Application Support/Firefox/Profiles/*default-release*/")
+    profiles = home_dir.glob(f"Library/Application Support/Firefox/Profiles/{release_name}")
 else:
     # why aren't you using any of these operating systems???
     print("Unrecognized file system!")
@@ -59,7 +74,7 @@ print()
 ###########################################################################
 
 # the path for the chrome directory
-profile_chrome_dir = os.path.join(firefox_default_profile, "chrome/")
+profile_chrome_dir = os.path.join(firefox_default_profile, "chrome/") #type: ignore
 
 # the path for the userChrome file
 profile_chrome_file = os.path.join(profile_chrome_dir, "userChrome.css")
@@ -68,7 +83,7 @@ profile_chrome_file = os.path.join(profile_chrome_dir, "userChrome.css")
 profile_content_file = os.path.join(profile_chrome_dir, "userContent.css")
 
 # the path for the user preferences file
-profile_user_prefs = os.path.join(firefox_default_profile, "user.js")
+profile_user_prefs = os.path.join(firefox_default_profile, "user.js") #type: ignore
 
 # values of whether certain directories exist
 chrome_exists = False;
