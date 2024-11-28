@@ -1,4 +1,8 @@
 /* hides the native tabs */
+
+@import url(hide_tabs_toolbar.css);
+@import url(autohide_sidebar.css);
+
 #TabsToolbar {
     visibility: collapse;
 }
