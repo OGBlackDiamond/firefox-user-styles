@@ -39,14 +39,14 @@ elif args.nightly:
 else:
     release_name = "*default-release*"
 
-
 # gets the default firefox profile based on kernel
 if opsys == "Windows":
     profiles = home_dir.glob(f"AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\{release_name}\\")
 elif opsys == "Linux":
-    profiles = home_dir.glob(f".mozilla/firefox/{release_name}/")
+    profiles = home_dir.glob(f".config/mozilla/firefox/{release_name}/")
 elif opsys == "Darwin":
     profiles = home_dir.glob(f"Library/Application Support/Firefox/Profiles/{release_name}")
+
 else:
     # why aren't you using any of these operating systems???
     print("Unrecognized file system!")
